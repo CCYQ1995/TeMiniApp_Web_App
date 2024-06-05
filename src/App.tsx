@@ -1,17 +1,17 @@
-import { useCallback } from 'react';
+// import { useCallback } from 'react';
 import { TonConnectButton } from '@tonconnect/ui-react';
 // import { useTonWallet, useTonAddress } from '@tonconnect/ui-react'
 // import WebApp from '@twa-dev/sdk'
 
 import './App.css'
-import { Connector } from './Connector';
+// import { Connector } from './Connector';
 
 // import { isDesktop, isMobile, openLink } from './Utils';
 
 
 function App() {
 
-  const walletsList = Connector.getWallets();
+  // const walletsList = Connector.getWallets();
 
   // const connectDidClick = useCallback(() => {
   //   console.log(walletsList);
