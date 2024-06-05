@@ -13,11 +13,11 @@ function App() {
 
   const walletsList = Connector.getWallets();
 
-  const connectDidClick = useCallback(() => {
-    console.log(walletsList);
-    Connector.connect
+  // const connectDidClick = useCallback(() => {
+  //   console.log(walletsList);
+  //   Connector.connect
 
-  }, [walletsList]);
+  // }, [walletsList]);
 
   return (
     <div className='app'>
