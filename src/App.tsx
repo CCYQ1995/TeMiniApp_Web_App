@@ -11,7 +11,9 @@ function App() {
   const wallet = useTonWallet();
   return (
     <>
-      <TonConnectUIProvider actionsConfiguration={{twaReturnUrl: 'https://t.me/Xsy89757Bot'}}>
+      <TonConnectUIProvider 
+      manifestUrl='https://ccyq1995.github.io/TeMiniApp_Web_App/manifest.json' 
+      actionsConfiguration={{twaReturnUrl: 'https://t.me/Xsy89757Bot'}}>
 
 
         <div>
