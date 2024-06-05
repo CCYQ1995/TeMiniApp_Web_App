@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import './manifest.json'
 import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react'
