@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './App.css'
-import './manifest.json'
 import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react'
 import WebApp from '@twa-dev/sdk'
 
