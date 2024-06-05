@@ -44,3 +44,10 @@
 .wallet-button {
   color: aquamarine;
 }
+
+.app-title {
+  font-size: 30px;
+  line-height: 34px;
+  color: chocolate;
+  font-weight: bold;
+}

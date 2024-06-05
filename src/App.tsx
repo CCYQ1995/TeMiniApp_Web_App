@@ -1,56 +1,31 @@
-import React, { useEffect } from 'react';
-import './App.css'
-import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react'
+import React, { useCallback } from 'react';
+import { useTonWallet, useTonAddress } from '@tonconnect/ui-react'
 import WebApp from '@twa-dev/sdk'
 
+import { Connector } from './Connector';
+import { isDesktop, isMobile, openLink } from './Utils';
+import './App.css'
 
-export const Address = () => {
-  const userAddress = useTonAddress();
-  const rawAddress = useTonAddress(false);
-  return (
-    userAddress && (
-      <div>
-        <span>User-Friendly address: {userAddress}</span>
-        <span>Raw address: {rawAddress}</span>
-      </div>
-    )
-  );
-}
-
-export const Wallet = () => {
-  const wallet = useTonWallet();
-  return (
-    wallet && (
-      <div>
-        <span>Connected wallet: {wallet?.account.address}</span>
-        <span>Device: {wallet?.device.appName}</span>
-      </div>
-    )
-  );
-}
 
 function App() {
 
+  const walletsList = Connector.getWallets();
 
+  const connectDidClick = useCallback(() => {
+    console.log(walletsList);
+  }, [walletsList]);
 
   return (
-    <>
-      <TonConnectButton className='ton-connect-class' />
+    <div className='app'>
+      <header>
+        <span className='app-title'>My App</span>
+        <button onClick={connectDidClick}>Connect Wallet</button>
+      </header>
+      <main>
 
-      <Address />
+      </main>
 
-      <Wallet></Wallet>
-
-      <button onClick={() => WebApp.showAlert(`Hello World!}`)} >
-        show WebApp Alert
-      </button>
-
-      <button onClick={() => { }}>
-        Connected Wallet
-      </button>
-
-
-    </>
+    </div>
   )
 }
 
