@@ -4,6 +4,7 @@ import { useTonAddress, useTonConnectUI, useTonWallet } from '@tonconnect/ui-rea
 import './App.css'
 import { AuthButton } from './AuthButton/AuthButton'
 import WebApp from '@twa-dev/sdk';
+import TonWeb from 'tonweb';
 
 
 function App() {
@@ -45,9 +46,17 @@ function App() {
       ]
     }
 
-    tonConnectUI.sendTransaction(transaction).then((result) => {
+    const getBocHas = async (bocString: string) => {
+      const bocCell = TonWeb.boc.Cell.oneFromBoc(TonWeb.utils.base64ToBytes(bocString))
+      console.log("bocCell: ", bocCell);
+      const msgHash = TonWeb.utils.bytesToBase64(await bocCell.hash())
+      console.log("msgHash: ", msgHash);
+    }
 
+    tonConnectUI.sendTransaction(transaction).then((result) => {
       console.log("sendTransaction result:", result);
+      WebApp.showConfirm(result.boc)
+      getBocHas(result.boc);
     })
 
   };
