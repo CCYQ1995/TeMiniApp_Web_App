@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
-import { WalletInfoCurrentlyEmbedded, isWalletInfoCurrentlyEmbedded } from '@tonconnect/ui-react';
+import { WalletInfoInjectable, isWalletInfoInjectable } from '@tonconnect/ui-react';
 
 import './AuthButton.css'
 import { Connector } from '../Tools/Connector';
-import { openLink } from '../Utils';
+// import { openLink } from '../Utils';
+// import WebApp from '@twa-dev/sdk';
 
 
 export function AuthButton() {
 
     const unsubscribe = Connector.onStatusChange(walletInfo => {
         console.log(walletInfo);
+
     });
 
     /// 组件加载后，该方法会调用一次
@@ -23,7 +25,7 @@ export function AuthButton() {
 
         const walletList = await Connector.getWallets()
 
-        const embeddedWallet = walletList.find(isWalletInfoCurrentlyEmbedded) as WalletInfoCurrentlyEmbedded
+        const embeddedWallet = walletList.find(isWalletInfoInjectable) as WalletInfoInjectable
 
         console.log(walletList);
         console.log(embeddedWallet);
@@ -38,10 +40,7 @@ export function AuthButton() {
                 universalLink: 'https://app.tonkeeper.com/ton-connect',
                 bridgeUrl: 'https://bridge.tonapi.io/bridge'
             }
-
-            const universalLink = Connector.connect(walletConnectionSource);
-            console.log(universalLink);
-            openLink(universalLink)
+            Connector.connect(walletConnectionSource);
             unsubscribe()
         }
     };
