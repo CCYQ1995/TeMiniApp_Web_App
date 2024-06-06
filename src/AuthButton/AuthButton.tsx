@@ -9,11 +9,6 @@ import { Connector } from '../Tools/Connector';
 
 export function AuthButton() {
 
-    const unsubscribe = Connector.onStatusChange(walletInfo => {
-        console.log(walletInfo);
-
-    });
-
     /// 组件加载后，该方法会调用一次
     useEffect(() => {
         console.log('AuthButton useEffect');
@@ -33,7 +28,6 @@ export function AuthButton() {
         if (embeddedWallet) {
             console.log(embeddedWallet.jsBridgeKey);
             Connector.connect({ jsBridgeKey: embeddedWallet.jsBridgeKey })
-            unsubscribe()
         } else {
             // Should correspond to the wallet that user selects
             const walletConnectionSource = {
@@ -41,8 +35,14 @@ export function AuthButton() {
                 bridgeUrl: 'https://bridge.tonapi.io/bridge'
             }
             Connector.connect(walletConnectionSource);
-            unsubscribe()
         }
+
+        Connector.onStatusChange(walletInfo => {
+            console.log('Connection status:', walletInfo);
+        });
+
+        Connector.restoreConnection();
+
     };
 
     return (
