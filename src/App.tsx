@@ -1,11 +1,9 @@
-import { TonConnectButton, useTonAddress, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
-// import { useTonWallet, useTonAddress } from '@tonconnect/ui-react'
-// import WebApp from '@twa-dev/sdk'
 import eruda from 'eruda'
-
+import { useTonAddress, useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 
 import './App.css'
-// import { AuthButton } from './AuthButton/AuthButton'
+import { AuthButton } from './AuthButton/AuthButton'
+import WebApp from '@twa-dev/sdk';
 
 
 function App() {
@@ -25,18 +23,47 @@ function App() {
     console.log('Connection status:', walletInfo);
   })
 
+  const didClickPayAction = async () => {
+
+    console.log("didClickPayAction");
+    console.log("WebApp.initDataUnsafe: ", WebApp.initDataUnsafe);
+    console.log("WebApp.initDataUnsafe.user: ", WebApp.initDataUnsafe.user);
+
+    if (tonConnectUI.connected === false) {
+      console.log("need to connect");
+      tonConnectUI.openModal()
+      return;
+    }
+
+    const transaction = {
+      validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec,
+      messages: [
+        {
+          address: "0QCp_X-yt1sIGV0tXJPmksGE7DGUEQwbpDioKrA3C1nzIqES", // destination address
+          amount: "100000000" //Toncoin in nanotons
+        }
+      ]
+    }
+
+    tonConnectUI.sendTransaction(transaction).then((result) => {
+
+      console.log("sendTransaction result:", result);
+    })
+
+  };
+
 
   return (
     <div className='app'>
       <header className='app-header'>
         <span className='app-title'>My App</span>
-        {/* <AuthButton /> */}
-        <TonConnectButton></TonConnectButton>
+        <AuthButton />
       </header>
 
       <main>
         {userFriendlyAddress && (<span>User-friendly address: {userFriendlyAddress}</span>)}
         {rawAddress && (<span>Raw address: {rawAddress}</span>)}
+        {wallet && (<button onClick={didClickPayAction}>Send transaction</button>)}
       </main>
 
     </div>
