@@ -8,5 +8,10 @@ export default defineConfig({
   build: {
     outDir: './docs'
   },
-  base: './'
+  base: './',
+  resolve: {
+    alias: {
+      process: "process/browser"
+    }
+  }
 })

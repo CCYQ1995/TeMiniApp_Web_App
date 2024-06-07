@@ -5,12 +5,16 @@ import './App.css'
 import { AuthButton } from './AuthButton/AuthButton'
 import WebApp from '@twa-dev/sdk';
 import TonWeb from 'tonweb';
+import { beginCell, toNano } from '@ton/ton';
+
 
 
 function App() {
 
   eruda.init();
 
+  const tonweb = new TonWeb(new TonWeb.HttpProvider('https://testnet.toncenter.com/api/v2/jsonRPC', { apiKey: '82636b45d1a5ea381c6a17eb347751871bb8de1aae77cd23c31679d070f398e3' }));
+  // const tonweb = new TonWeb();
   const wallet = useTonWallet()
   const userFriendlyAddress = useTonAddress()
   const rawAddress = useTonAddress(false)
@@ -36,26 +40,38 @@ function App() {
       return;
     }
 
+    const body = beginCell()
+      .storeUint(0, 32)
+      .storeStringTail(`Hello, My Test ${Math.floor(Date.now() / 1000) + 60}`)
+      .endCell();
+
     const transaction = {
       validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec,
       messages: [
         {
           address: "0QCp_X-yt1sIGV0tXJPmksGE7DGUEQwbpDioKrA3C1nzIqES", // destination address
-          amount: "100000000" //Toncoin in nanotons
+          amount: toNano("0.01").toString(), //Toncoin in nanotons
+          payload: body.toBoc().toString("base64")
         }
       ]
     }
 
     const getBocHas = async (bocString: string) => {
-      const bocCell = TonWeb.boc.Cell.oneFromBoc(TonWeb.utils.base64ToBytes(bocString))
+      const bocCell = tonweb.boc.Cell.oneFromBoc(tonweb.utils.base64ToBytes(bocString))
+      console.log("tonweb.boc: ", tonweb.boc);
+      console.log("tonweb.boc.BitString: ", tonweb.boc.BitString.toString());
+      // console.log("tonweb.boc.BitString: ", tonweb.boc.BitString.toHex());
       console.log("bocCell: ", bocCell);
-      const msgHash = TonWeb.utils.bytesToBase64(await bocCell.hash())
+      console.log("bocCell.hash: ", bocCell.hash());
+      const msgHash = tonweb.utils.bytesToBase64(await bocCell.hash())
       console.log("msgHash: ", msgHash);
     }
 
     tonConnectUI.sendTransaction(transaction).then((result) => {
       console.log("sendTransaction result:", result);
-      WebApp.showConfirm(result.boc)
+      console.log("sendTransaction result.boc:", result.boc);
+      // WebApp.showConfirm(result.boc)
+      console.log(typeof (result.boc));
       getBocHas(result.boc);
     })
 

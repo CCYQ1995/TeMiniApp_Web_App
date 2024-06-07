@@ -7,6 +7,14 @@
     <title>Vite + React + TS</title>
   </head>
   <body>
+    <script>window.global = window;</script>
+    <script type="module">
+        import { Buffer } from "buffer/"; // <-- no typo here ("/")
+        import process from "process";
+      
+        window.Buffer = Buffer;
+        window.process = process;
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
