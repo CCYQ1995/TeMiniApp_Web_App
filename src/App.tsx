@@ -6,6 +6,8 @@ import { AuthButton } from './AuthButton/AuthButton'
 import WebApp from '@twa-dev/sdk';
 import TonWeb from 'tonweb';
 import { beginCell, toNano } from '@ton/ton';
+// import { initUtils } from '@tma.js/sdk';
+// import { useUtilsRaw } from '@tma.js/sdk-react';
 
 
 
@@ -77,6 +79,17 @@ function App() {
 
   };
 
+  const didClickInvitedFriends = async () => {
+    WebApp.openTelegramLink(`https://t.me/share/url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
+    // WebApp.openTelegramLink(`tg://msg_url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
+    // initUtils().openTelegramLink()
+    // initUtils().shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
+    // const utils = useUtilsRaw()
+    // utils.shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
+
+    // let utils = new Utils('6.10', '')
+    // utils.shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
+  }
 
   return (
     <div className='app'>
@@ -89,6 +102,7 @@ function App() {
         {userFriendlyAddress && (<span>User-friendly address: {userFriendlyAddress}</span>)}
         {rawAddress && (<span>Raw address: {rawAddress}</span>)}
         {wallet && (<button onClick={didClickPayAction}>Send transaction</button>)}
+        <button onClick={didClickInvitedFriends}>Invite Friends</button>
       </main>
 
     </div>
