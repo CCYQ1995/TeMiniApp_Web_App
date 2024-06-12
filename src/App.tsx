@@ -80,8 +80,10 @@ function App() {
   };
 
   const didClickInvitedFriends = async () => {
-    WebApp.openTelegramLink(`https://t.me/share/url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
-    // WebApp.openTelegramLink(`tg://msg_url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
+    // WebApp.openTelegramLink(`https://t.me/share/url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
+    // WebApp.openTelegramLink(`tg://msg_url/url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
+    WebApp.openTelegramLink(`https://t.me/Xsy89757Bot&startapp`)
+    // WebApp.openTelegramLink(`tg://resolve?domain=${'Xsy89757Bot'}&startapp`)
     // initUtils().openTelegramLink()
     // initUtils().shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
     // const utils = useUtilsRaw()
