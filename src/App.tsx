@@ -17,6 +17,21 @@ function App() {
 
   const tonweb = new TonWeb(new TonWeb.HttpProvider('https://testnet.toncenter.com/api/v2/jsonRPC', { apiKey: '82636b45d1a5ea381c6a17eb347751871bb8de1aae77cd23c31679d070f398e3' }));
   // const tonweb = new TonWeb();
+  const hash = window.location.hash.slice(1);
+  console.log(hash); // tgWebAppData=...&tgWebAppVersion=6.2&...
+
+  const params = new URLSearchParams(hash);
+  console.log("tgWebAppStartParam: ", params.get('tgWebAppStartParam'));
+
+  const result = window.location.hash
+  console.log("result: ", result);
+  // const param = result.get('uid')
+  // console.log("param: ", param);
+
+  const query = window.location.search
+  console.log("query: ", query);
+
+
   const wallet = useTonWallet()
   const userFriendlyAddress = useTonAddress()
   const rawAddress = useTonAddress(false)
@@ -80,17 +95,10 @@ function App() {
   };
 
   const didClickInvitedFriends = async () => {
-    // WebApp.openTelegramLink(`https://t.me/share/url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
+    WebApp.openTelegramLink(`https://t.me/share/url?url=${'https://t.me/Xsy89757Bot?uid=112233'}&text=${'Look! Some cool app here!'}`)
     // WebApp.openTelegramLink(`tg://msg_url/url?url=${'https://t.me/Xsy89757Bot'}&text=${'Look! Some cool app here!'}`)
-    WebApp.openTelegramLink(`https://t.me/Xsy89757Bot&startapp`)
+    // WebApp.openTelegramLink(`https://t.me/Xsy89757Bot&startapp`)
     // WebApp.openTelegramLink(`tg://resolve?domain=${'Xsy89757Bot'}&startapp`)
-    // initUtils().openTelegramLink()
-    // initUtils().shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
-    // const utils = useUtilsRaw()
-    // utils.shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
-
-    // let utils = new Utils('6.10', '')
-    // utils.shareURL('https://t.me/Xsy89757Bot', 'Look! Some cool app here!')
   }
 
   return (
